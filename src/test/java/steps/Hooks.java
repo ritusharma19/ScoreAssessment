@@ -9,16 +9,17 @@ import org.openqa.selenium.OutputType;
 
 public class Hooks {
 
+
+    BasePage basePage = new BasePage();
     @Before
     public void initialize() {
-        BasePage basePage = new BasePage();
-
         basePage.closeApp();
         basePage.launchApp();
     }
 
     @After
     public void quit(Scenario scenario) {
+        basePage.uninstallApp();
         if (scenario.isFailed()) {
             byte[] screenshot = new DriverManager().getDriver().getScreenshotAs(OutputType.BYTES);
             scenario.attach(screenshot, "image/png", scenario.getName());

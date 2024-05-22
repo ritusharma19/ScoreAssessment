@@ -22,6 +22,14 @@ public class TeamPage extends BasePage {
     @AndroidFindBy(accessibility = "Navigate up")
     private WebElement back;
 
+//    @AndroidFindBy(xpath = "//android.widget.TextView[contains(text(),\"Toronto Raptors\")]")
+//    private WebElement teamData;
+
+    @AndroidFindBy(xpath = "android.widget.TextView[@text=\"Toronto Raptors 2024-25 Financial Summary\"]")
+    private WebElement teamData;
+//    @AndroidFindBy(xpath = "//*[text()[contains(.,'Toronto Raptors')]]")
+//    private WebElement teamData;
+
 
     public boolean isTeamIconDisplayed(){
         return isElementDisplayed(teamIcon);
@@ -39,8 +47,11 @@ public class TeamPage extends BasePage {
         click(teamPayrollBtn);
     }
 
-    public boolean teamData(String teamName){
-        if(driver.findElements(By.xpath("//android.widget.TextView[contains(text(),'"+teamName+"')]")).size()>0)
+    public boolean teamData(String teamName) throws InterruptedException {
+       // Thread.sleep(50000);
+        //android.widget.TextView[@text="Toronto Raptors 2024-25 Financial Summary"]
+        if (isElementDisplayed(teamData))
+      //  if(driver.findElements(By.xpath("//android.widget.TextView[contains(text(),'"+teamName+"')]")).size()>0)
             return true;
         else return false;
     }

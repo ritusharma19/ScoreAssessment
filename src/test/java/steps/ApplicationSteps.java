@@ -8,6 +8,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import testRunner.myTestRunner;
 
 public class ApplicationSteps {
 
@@ -45,7 +46,7 @@ public class ApplicationSteps {
     }
 
     @When("The user selects subTab and Verify Correct data for {string} is displayed")
-    public void theUserSelectsSubTabAndVerifyCorrectDataForIsDisplayed(String teamName) {
+    public void theUserSelectsSubTabAndVerifyCorrectDataForIsDisplayed(String teamName) throws InterruptedException {
         teamPage.selectSubTab();
         teamPage.clickPayroll();
         Assert.assertTrue(teamPage.teamData(teamName));

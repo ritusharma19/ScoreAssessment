@@ -31,27 +31,31 @@ public class Homepage extends BasePage {
     @AndroidFindBy(id = "com.fivemobile.thescore:id/search_src_text")
     private WebElement searchTextInput;
 
+    @AndroidFindBy(id = "com.fivemobile.thescore:id/dismiss_modal")
+    private WebElement dismissContentonHp;
+
+    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id=\"com.fivemobile.thescore:id/txt_name\" and @text=\"Toronto Raptors\"]")
+    private WebElement teamNameLocator;
 
 
     public boolean isHomePageDisplayed() throws InterruptedException {
-        Thread.sleep(100000);
-        if(driver.findElements(By.xpath("//android.widget.TextView[@text=\"Ok, Got It\"]")).size()>0){
-            click(driver.findElement(By.xpath("//android.widget.TextView[@text=\"Ok, Got It\"]")));
-        }
+        verifyHomePagePopup();
         return isElementDisplayed(profileIcon) && isElementDisplayed(newsTab) && isElementDisplayed(scoresTab)
         && isElementDisplayed(fvtTab) && isElementDisplayed(betTab) && isElementDisplayed(leaguesTab);
     }
 
-    public void searchTeam(String teamName) throws InterruptedException {
-
-        Thread.sleep(100000);
-        if((driver.findElements(By.id("com.fivemobile.thescore:id/dismiss_modal")).size())!=0){
-            click(driver.findElement(By.id("com.fivemobile.thescore:id/dismiss_modal")));
+    public void verifyHomePagePopup(){
+        if(isElementDisplayed(dismissContentonHp)){
+            click(dismissContentonHp);
         }
+    }
 
+    public void searchTeam(String teamName) throws InterruptedException {
         click(search);
         sendKeys(searchTextInput,teamName);
         click(driver.findElement(By.xpath("//android.widget.TextView[@resource-id=\"com.fivemobile.thescore:id/txt_name\" and @text='"+teamName+"']")));
+        click(teamNameLocator);
+
     }
 
     public boolean isSearchBarVisible(){
